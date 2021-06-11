@@ -91,8 +91,7 @@ class _BlogHomePageState extends State<BlogHomePage> {
   }
 
   Future<List<Blog>> getBlogs() async {
-    final response =
-        await http.get(Uri.parse('https://e042502faf43.ngrok.io/blog'));
+    final response = await http.get(Uri.parse('https://localhost:3000/blog'));
     final blogs = blogFromJson(response.body).toList();
     return blogs;
   }
@@ -151,7 +150,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                     category: _category.text,
                     author: _author.text);
                 await http.post(
-                  Uri.parse('https://e042502faf43.ngrok.io/blog'),
+                  Uri.parse('https://localhost:3000/blog'),
                   body: blogToJson(newBlog),
                 );
                 Navigator.pop(context, newBlog);
@@ -177,7 +176,7 @@ class BlogDetailPage extends StatelessWidget {
             onSelected: (value) async {
               if (value == 'sil') {
                 final response = await http.delete(
-                    Uri.parse('https://e042502faf43.ngrok.io/blog/${blog.id}'));
+                    Uri.parse('https://localhost:3000/blog/${blog.id}'));
                 if (response.statusCode == HttpStatus.ok) {
                   Navigator.pop(context, blog);
                 }
